@@ -142,6 +142,7 @@ docs/verification/       Recorded verification evidence
 - `docs/verification/phase-6.md`
 - `docs/verification/phase-7.md`
 - `docs/verification/phase-8.md`
+- `docs/verification/requirements-audit.md`
 
 ## Known Phase 1 limitations
 
