@@ -1,0 +1,7 @@
+idf_component_register(
+    SRCS "light_health_engine.cpp"
+    INCLUDE_DIRS "include"
+    REQUIRES dali_core
+)
+target_compile_features(${COMPONENT_LIB} PUBLIC cxx_std_17)
+target_compile_options(${COMPONENT_LIB} PRIVATE -Wall -Wextra -Werror)

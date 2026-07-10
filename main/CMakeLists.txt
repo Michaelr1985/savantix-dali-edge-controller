@@ -10,6 +10,8 @@ idf_component_register(
         dali_protocol
         dali_device_manager
         dali_scheduler
+        light_health_engine
+        trend_engine
         dali_simulator
         time_service
 )

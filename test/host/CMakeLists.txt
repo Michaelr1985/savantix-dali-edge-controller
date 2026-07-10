@@ -256,3 +256,32 @@ target_compile_features(test_dali_scheduler PRIVATE cxx_std_17)
 target_compile_options(test_dali_scheduler PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME dali_scheduler COMMAND test_dali_scheduler)
+
+add_executable(test_light_health
+    test_light_health.cpp
+    ../../components/light_health_engine/light_health_engine.cpp
+)
+target_include_directories(test_light_health PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/light_health_engine/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/trend_engine/include
+)
+target_compile_features(test_light_health PRIVATE cxx_std_17)
+target_compile_options(test_light_health PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME light_health COMMAND test_light_health)
+
+add_executable(test_trend_engine
+    test_trend_engine.cpp
+    ../../components/trend_engine/trend_engine.cpp
+)
+target_include_directories(test_trend_engine PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/trend_engine/include
+)
+target_compile_features(test_trend_engine PRIVATE cxx_std_17)
+target_compile_options(test_trend_engine PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME trend_engine COMMAND test_trend_engine)
