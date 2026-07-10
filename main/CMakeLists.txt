@@ -9,7 +9,9 @@ idf_component_register(
         dali_phy
         dali_protocol
         dali_device_manager
+        dali_diagnostics
         dali_scheduler
+        baseline_engine
         light_health_engine
         event_manager
         c6_interface

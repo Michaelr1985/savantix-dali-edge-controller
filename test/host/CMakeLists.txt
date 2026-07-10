@@ -363,3 +363,31 @@ target_compile_features(test_demo_controller PRIVATE cxx_std_17)
 target_compile_options(test_demo_controller PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME demo_controller COMMAND test_demo_controller)
+
+add_executable(test_diagnostics
+    test_diagnostics.cpp
+    ../../components/dali_diagnostics/diagnostics.cpp
+)
+target_include_directories(test_diagnostics PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_diagnostics/include
+)
+target_compile_features(test_diagnostics PRIVATE cxx_std_17)
+target_compile_options(test_diagnostics PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME diagnostics COMMAND test_diagnostics)
+
+add_executable(test_baseline_engine
+    test_baseline_engine.cpp
+    ../../components/baseline_engine/baseline_engine.cpp
+)
+target_include_directories(test_baseline_engine PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/baseline_engine/include
+)
+target_compile_features(test_baseline_engine PRIVATE cxx_std_17)
+target_compile_options(test_baseline_engine PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME baseline_engine COMMAND test_baseline_engine)

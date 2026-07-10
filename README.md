@@ -27,6 +27,7 @@ Phases 1 through 8 are implemented:
 - Event activation, deduplication, escalation, acknowledgement, clearing, reminders, and a bounded CRC-protected local event history ring.
 - C6-neutral binary framing with CRC16, sequence numbers, acknowledgement state, bounded payloads, and a mock transport.
 - Four-light deterministic demo controller, event-to-mock-C6 handoff, NVS metadata adapter, and bounded task-heartbeat monitor.
+- Explicit DALI diagnostic precedence and commanded-level baseline bands with guarded healthy-sample updates.
 - Host CTest suite and verified ESP-IDF build.
 
 The demo task is enabled by `CONFIG_SAVANTIX_DEMO_ENABLE`; real hardware PHY selection and field commissioning remain deployment work.
@@ -118,6 +119,8 @@ components/local_storage/    Bounded CRC-checked event history
 components/c6_interface/     CRC-framed mock/UART-neutral C6 session
 components/demo_controller/  Four-light deterministic fault demo
 components/system_monitor/  Task heartbeat and queue-health monitor
+components/dali_diagnostics/ Direct-fault and thermal/electrical rules
+components/baseline_engine/  Five commanded-level baseline bands
 components/time_service/ Monotonic and optional wall-clock time
 test/host/               Portable CTest suite
 docs/superpowers/        Approved architecture and implementation plans
