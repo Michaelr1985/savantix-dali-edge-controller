@@ -129,6 +129,8 @@ docs/verification/       Recorded verification evidence
 
 ## Design documents
 
+- [`docs/architecture-and-integration.md`](docs/architecture-and-integration.md) — how the firmware works and how to replace the simulator/demo path with a validated DALI PHY, C6 transport, and production task stack.
+
 - `docs/superpowers/specs/2026-07-10-savantix-dali-edge-controller-design.md`
 - `docs/superpowers/plans/2026-07-10-savantix-dali-edge-controller-master-plan.md`
 - `docs/superpowers/plans/2026-07-10-savantix-dali-phase-1-foundation.md`
