@@ -26,8 +26,8 @@
 | `components/dali_simulator/include/dali/sim/simulated_dali_phy.h` | Bounded deterministic simulator API |
 | `components/dali_simulator/simulated_dali_phy.cpp` | Simulator behavior |
 | `components/time_service/include/dali/time/i_time_source.h` | Time contract |
-| `components/time_service/include/dali/time/steady_time_source.h` | ESP monotonic-time adapter |
-| `components/time_service/steady_time_source.cpp` | ESP timer implementation |
+| `components/time_service/include/dali/time/esp_time_source.h` | ESP monotonic-time adapter |
+| `components/time_service/esp_time_source.cpp` | ESP timer implementation |
 | `test/host/CMakeLists.txt` | Portable test build |
 | `test/host/test_support.h` | Minimal assertion/test runner helpers |
 | `test/host/test_domain_types.cpp` | Domain-type tests |

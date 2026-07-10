@@ -46,3 +46,13 @@ foreach(simulator_test IN ITEMS
     target_link_libraries(${simulator_test} PRIVATE dali_simulator_host)
     add_test(NAME ${simulator_test} COMMAND ${simulator_test})
 endforeach()
+
+add_executable(test_time_contract test_time_contract.cpp)
+target_include_directories(test_time_contract PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/time_service/include
+)
+target_compile_features(test_time_contract PRIVATE cxx_std_17)
+target_compile_options(test_time_contract PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME time_contract COMMAND test_time_contract)
