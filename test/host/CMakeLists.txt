@@ -99,3 +99,14 @@ target_compile_features(test_dali_response_parser PRIVATE cxx_std_17)
 target_compile_options(test_dali_response_parser PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME dali_response_parser COMMAND test_dali_response_parser)
+
+add_executable(test_dali_command_queue test_dali_command_queue.cpp)
+target_include_directories(test_dali_command_queue PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+)
+target_compile_features(test_dali_command_queue PRIVATE cxx_std_17)
+target_compile_options(test_dali_command_queue PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME dali_command_queue COMMAND test_dali_command_queue)
