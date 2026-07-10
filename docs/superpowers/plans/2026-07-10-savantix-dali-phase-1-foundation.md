@@ -73,7 +73,7 @@ Create `partitions.csv`:
 nvs,         data, nvs,     0x9000,  0x6000,
 phy_init,    data, phy,     0xf000,  0x1000,
 factory,     app,  factory, 0x10000, 2M,
-dali_history,data, 0x40,             1M,
+dali_history,data, 0x40,             ,1M,
 ```
 
 Create `main/CMakeLists.txt`:
