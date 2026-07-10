@@ -11,6 +11,8 @@
 #include "dali/protocol/dali_response_parser.h"
 #include "dali/protocol/dali_transaction.h"
 #include "dali/sim/simulated_dali_phy.h"
+#include "dali/demo/demo_controller.h"
+#include "esp_timer.h"
 
 namespace {
 
@@ -103,4 +105,15 @@ extern "C" void app_main() {
     ESP_LOGI("savantix",
              "Protocol self-check passed for simulated address %u",
              static_cast<unsigned>(address->value()));
+
+    static dali::demo::DemoController demo;
+    xTaskCreate(
+        [](void* context) {
+            auto* controller = static_cast<dali::demo::DemoController*>(context);
+            while (true) {
+                controller->step(static_cast<std::uint64_t>(esp_timer_get_time() / 1000));
+                vTaskDelay(pdMS_TO_TICKS(1000));
+            }
+        },
+        "dali_demo", 6144, &demo, 4, nullptr);
 }

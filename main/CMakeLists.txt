@@ -13,7 +13,9 @@ idf_component_register(
         light_health_engine
         event_manager
         c6_interface
+        demo_controller
         local_storage
+        system_monitor
         trend_engine
         dali_simulator
         time_service
