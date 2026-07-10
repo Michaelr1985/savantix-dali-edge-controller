@@ -179,3 +179,67 @@ target_compile_options(test_pipeline_query_client PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 target_link_libraries(test_pipeline_query_client PRIVATE dali_simulator_host)
 add_test(NAME pipeline_query_client COMMAND test_pipeline_query_client)
+
+add_executable(test_dali_device_registry
+    test_dali_device_registry.cpp
+    ../../components/dali_device_manager/dali_device_manager.cpp
+)
+target_include_directories(test_dali_device_registry PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_device_manager/include
+)
+target_compile_features(test_dali_device_registry PRIVATE cxx_std_17)
+target_compile_options(test_dali_device_registry PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME dali_device_registry COMMAND test_dali_device_registry)
+
+add_executable(test_dali_discovery
+    test_dali_discovery.cpp
+    ../../components/dali_device_manager/dali_device_manager.cpp
+)
+target_include_directories(test_dali_discovery PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_device_manager/include
+)
+target_compile_features(test_dali_discovery PRIVATE cxx_std_17)
+target_compile_options(test_dali_discovery PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME dali_discovery COMMAND test_dali_discovery)
+
+add_executable(test_dali_capabilities
+    test_dali_capabilities.cpp
+    ../../components/dali_device_manager/dali_device_manager.cpp
+)
+target_include_directories(test_dali_capabilities PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_device_manager/include
+)
+target_compile_features(test_dali_capabilities PRIVATE cxx_std_17)
+target_compile_options(test_dali_capabilities PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME dali_capabilities COMMAND test_dali_capabilities)
+
+add_executable(test_device_manager_integration
+    test_device_manager_integration.cpp
+    ../../components/dali_device_manager/dali_device_manager.cpp
+)
+target_include_directories(test_device_manager_integration PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_device_manager/include
+)
+target_compile_features(test_device_manager_integration PRIVATE cxx_std_17)
+target_compile_options(test_device_manager_integration PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME device_manager_integration COMMAND test_device_manager_integration)
