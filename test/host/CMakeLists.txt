@@ -19,3 +19,30 @@ target_include_directories(test_phy_contract PRIVATE
 target_compile_features(test_phy_contract PRIVATE cxx_std_17)
 target_compile_options(test_phy_contract PRIVATE -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME phy_contract COMMAND test_phy_contract)
+
+add_library(dali_simulator_host STATIC
+    ../../components/dali_simulator/simulated_dali_phy.cpp
+)
+target_include_directories(dali_simulator_host PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_simulator/include
+)
+target_compile_features(dali_simulator_host PUBLIC cxx_std_17)
+target_compile_options(dali_simulator_host PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+
+foreach(simulator_test IN ITEMS
+        test_simulated_dali_phy
+        test_simulated_dali_phy_capacity)
+    add_executable(${simulator_test} ${simulator_test}.cpp)
+    target_include_directories(${simulator_test} PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_simulator/include
+    )
+    target_compile_features(${simulator_test} PRIVATE cxx_std_17)
+    target_compile_options(${simulator_test} PRIVATE
+        -Wall -Wextra -Wpedantic -Werror)
+    target_link_libraries(${simulator_test} PRIVATE dali_simulator_host)
+    add_test(NAME ${simulator_test} COMMAND ${simulator_test})
+endforeach()
