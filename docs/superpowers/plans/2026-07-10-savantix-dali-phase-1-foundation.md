@@ -15,7 +15,7 @@
 | File | Responsibility |
 | --- | --- |
 | `CMakeLists.txt` | ESP-IDF project entry |
-| `Kconfig.projbuild` | User-facing configuration options |
+| `main/Kconfig.projbuild` | User-facing configuration options |
 | `sdkconfig.defaults` | ESP32-S3 development defaults |
 | `partitions.csv` | App, NVS, and history storage layout |
 | `main/CMakeLists.txt` | Main component dependencies |
@@ -118,7 +118,7 @@ git commit -m "build: scaffold ESP-IDF DALI controller"
 ### Task 2: Add central Kconfig-backed runtime configuration
 
 **Files:**
-- Create: `Kconfig.projbuild`
+- Create: `main/Kconfig.projbuild`
 - Create: `main/app_config.h`
 - Create: `main/app_config.cpp`
 - Modify: `main/CMakeLists.txt`
@@ -151,7 +151,7 @@ Expected: failure containing `app_config.h: No such file or directory`.
 
 - [ ] **Step 3: Define configuration options and the validated snapshot**
 
-Create `Kconfig.projbuild`:
+Create `main/Kconfig.projbuild`:
 
 ```kconfig
 menu "Savantix DALI Edge Controller"
@@ -402,7 +402,7 @@ Add `app_config.cpp` to `main/CMakeLists.txt`. In `app_main`, construct `SmartLi
 
 ```bash
 idf.py build
-git add Kconfig.projbuild main/app_config.h main/app_config.cpp main/CMakeLists.txt main/app_main.cpp test/host/test_app_config_compile.cpp
+git add main/Kconfig.projbuild main/app_config.h main/app_config.cpp main/CMakeLists.txt main/app_main.cpp test/host/test_app_config_compile.cpp
 git commit -m "feat: add validated controller configuration"
 ```
 

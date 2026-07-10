@@ -1,0 +1,115 @@
+menu "Savantix DALI Edge Controller"
+
+config SAVANTIX_DALI_TX_GPIO
+    int "DALI transceiver TX GPIO"
+    default -1
+
+config SAVANTIX_DALI_RX_GPIO
+    int "DALI transceiver RX GPIO"
+    default -1
+
+config SAVANTIX_BUS_POWER_GPIO
+    int "DALI bus-power status GPIO"
+    default -1
+
+config SAVANTIX_TRANSCEIVER_FAULT_GPIO
+    int "DALI transceiver fault GPIO"
+    default -1
+
+config SAVANTIX_BUS_VOLTAGE_ADC_GPIO
+    int "Optional bus-voltage ADC GPIO"
+    default -1
+
+config SAVANTIX_BUS_CURRENT_ADC_GPIO
+    int "Optional bus-current ADC GPIO"
+    default -1
+
+config SAVANTIX_C6_TX_GPIO
+    int "ESP32-C6 UART TX GPIO"
+    default -1
+
+config SAVANTIX_C6_RX_GPIO
+    int "ESP32-C6 UART RX GPIO"
+    default -1
+
+config SAVANTIX_C6_RTS_GPIO
+    int "Optional ESP32-C6 UART RTS GPIO"
+    default -1
+
+config SAVANTIX_C6_CTS_GPIO
+    int "Optional ESP32-C6 UART CTS GPIO"
+    default -1
+
+config SAVANTIX_MAX_LIGHTS
+    int "Maximum DALI lights"
+    range 1 64
+    default 64
+
+config SAVANTIX_ON_STATUS_POLL_MS
+    int "Commanded-on status poll period (ms)"
+    range 100 3600000
+    default 5000
+
+config SAVANTIX_OFF_STATUS_POLL_MS
+    int "Commanded-off status poll period (ms)"
+    range 100 3600000
+    default 30000
+
+config SAVANTIX_WARNING_STATUS_POLL_MS
+    int "Warning status poll period (ms)"
+    range 100 60000
+    default 2000
+
+config SAVANTIX_MAX_COMMAND_RETRIES
+    int "Maximum command retries"
+    range 0 8
+    default 3
+
+config SAVANTIX_NORMAL_BUS_UTILISATION_PERCENT
+    int "Maximum normal bus utilisation (%)"
+    range 1 100
+    default 30
+
+config SAVANTIX_DIAGNOSTIC_BUS_UTILISATION_PERCENT
+    int "Maximum diagnostic bus utilisation (%)"
+    range 1 100
+    default 60
+
+config SAVANTIX_TEMPERATURE_WARNING_C
+    int "Temperature warning (degrees C)"
+    range 0 200
+    default 80
+
+config SAVANTIX_TEMPERATURE_CRITICAL_C
+    int "Temperature critical (degrees C)"
+    range 1 220
+    default 90
+
+config SAVANTIX_WARNING_PERSISTENCE_SAMPLES
+    int "Warning abnormal samples"
+    range 1 32
+    default 3
+
+config SAVANTIX_FAULT_PERSISTENCE_SAMPLES
+    int "Fault consecutive samples"
+    range 1 32
+    default 5
+
+config SAVANTIX_RECOVERY_PERSISTENCE_SAMPLES
+    int "Recovery healthy samples"
+    range 1 64
+    default 10
+
+config SAVANTIX_C6_ENABLE
+    bool "Enable ESP32-C6 interface"
+    default n
+
+config SAVANTIX_DEMO_ENABLE
+    bool "Enable simulated DALI demo"
+    default y
+
+config SAVANTIX_ANOMALY_INTERFACE_ENABLE
+    bool "Enable anomaly-model interface"
+    default n
+
+endmenu
