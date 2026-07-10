@@ -127,3 +127,18 @@ target_compile_options(test_dali_transaction PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 target_link_libraries(test_dali_transaction PRIVATE dali_simulator_host)
 add_test(NAME dali_transaction COMMAND test_dali_transaction)
+
+add_executable(test_communication_quality
+    test_communication_quality.cpp
+    ../../components/dali_protocol/dali_transaction.cpp
+)
+target_include_directories(test_communication_quality PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+)
+target_compile_features(test_communication_quality PRIVATE cxx_std_17)
+target_compile_options(test_communication_quality PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME communication_quality COMMAND test_communication_quality)

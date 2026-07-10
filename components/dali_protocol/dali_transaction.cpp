@@ -1,6 +1,62 @@
 #include "dali/protocol/dali_transaction.h"
 
+#include <limits>
+
 namespace dali::protocol {
+
+void CommunicationQualityTracker::record(
+    const DaliTransactionResult& result) noexcept {
+    incrementSaturating(counters_.total);
+    if (result.status == TransactionStatus::Ok) {
+        incrementSaturating(counters_.successes);
+        return;
+    }
+
+    switch (result.lastPhyResult) {
+        case PhyResult::Timeout:
+            incrementSaturating(counters_.timeouts);
+            break;
+        case PhyResult::Collision:
+            incrementSaturating(counters_.collisions);
+            break;
+        case PhyResult::Busy:
+            incrementSaturating(counters_.busy);
+            break;
+        case PhyResult::BusPowerLost:
+            incrementSaturating(counters_.busPowerLosses);
+            break;
+        case PhyResult::TransceiverFault:
+            incrementSaturating(counters_.transceiverFaults);
+            break;
+        case PhyResult::Ok:
+        case PhyResult::InvalidArgument:
+        case PhyResult::NotInitialised:
+        case PhyResult::InternalError:
+            incrementSaturating(counters_.otherFailures);
+            break;
+    }
+}
+
+CommunicationQualitySnapshot CommunicationQualityTracker::snapshot()
+    const noexcept {
+    const bool noData = counters_.total == 0U;
+    const std::uint32_t failures =
+        counters_.total >= counters_.successes
+            ? counters_.total - counters_.successes
+            : 0U;
+    const float successRate = noData
+        ? 1.0F
+        : static_cast<float>(counters_.successes) /
+              static_cast<float>(counters_.total);
+    return {counters_, failures, successRate, noData};
+}
+
+void CommunicationQualityTracker::incrementSaturating(
+    std::uint32_t& value) noexcept {
+    if (value != std::numeric_limits<std::uint32_t>::max()) {
+        ++value;
+    }
+}
 
 DaliTransactionResult DaliTransactionService::execute(
     const DaliRequest& request) noexcept {

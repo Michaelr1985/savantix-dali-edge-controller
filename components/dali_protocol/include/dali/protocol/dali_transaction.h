@@ -38,6 +38,34 @@ struct DaliTransactionResult final {
     std::uint32_t retryDelayTotalMs{0};
 };
 
+struct CommunicationQualityCounters final {
+    std::uint32_t total{0};
+    std::uint32_t successes{0};
+    std::uint32_t timeouts{0};
+    std::uint32_t collisions{0};
+    std::uint32_t busy{0};
+    std::uint32_t busPowerLosses{0};
+    std::uint32_t transceiverFaults{0};
+    std::uint32_t otherFailures{0};
+};
+
+struct CommunicationQualitySnapshot final {
+    CommunicationQualityCounters counters{};
+    std::uint32_t failures{0};
+    float successRate{1.0F};
+    bool noData{true};
+};
+
+class CommunicationQualityTracker final {
+public:
+    void record(const DaliTransactionResult& result) noexcept;
+    [[nodiscard]] CommunicationQualitySnapshot snapshot() const noexcept;
+
+private:
+    static void incrementSaturating(std::uint32_t& value) noexcept;
+    CommunicationQualityCounters counters_{};
+};
+
 class DaliTransactionService final {
 public:
     static constexpr std::uint8_t kAbsoluteMaxRetries = 8;
