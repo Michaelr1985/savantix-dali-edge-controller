@@ -326,3 +326,40 @@ target_compile_features(test_c6_interface PRIVATE cxx_std_17)
 target_compile_options(test_c6_interface PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME c6_interface COMMAND test_c6_interface)
+
+add_executable(test_system_monitor
+    test_system_monitor.cpp
+    ../../components/system_monitor/system_monitor.cpp
+)
+target_include_directories(test_system_monitor PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/system_monitor/include
+)
+target_compile_features(test_system_monitor PRIVATE cxx_std_17)
+target_compile_options(test_system_monitor PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME system_monitor COMMAND test_system_monitor)
+
+add_executable(test_demo_controller
+    test_demo_controller.cpp
+    ../../components/demo_controller/demo_controller.cpp
+    ../../components/dali_device_manager/dali_device_manager.cpp
+    ../../components/event_manager/event_manager.cpp
+    ../../components/c6_interface/c6_interface.cpp
+    ../../components/light_health_engine/light_health_engine.cpp
+)
+target_include_directories(test_demo_controller PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_device_manager/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/event_manager/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/c6_interface/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/light_health_engine/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/demo_controller/include
+)
+target_compile_features(test_demo_controller PRIVATE cxx_std_17)
+target_compile_options(test_demo_controller PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME demo_controller COMMAND test_demo_controller)

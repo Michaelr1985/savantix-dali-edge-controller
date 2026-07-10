@@ -30,6 +30,7 @@ public:
         std::uint8_t address, LightEventType type) noexcept;
     [[nodiscard]] std::optional<EventTransition> reminder(
         std::uint64_t timestamp, std::uint64_t intervalMs) noexcept;
+    [[nodiscard]] std::size_t activeCount() const noexcept;
 
 private:
     struct Active final {

@@ -4,7 +4,7 @@ Production-oriented ESP-IDF firmware for an ESP32-S3 DALI/DALI-2 edge controller
 
 ## Current implementation status
 
-Phases 1 through 7 are implemented:
+Phases 1 through 8 are implemented:
 
 - Native ESP-IDF v6.0.2 project targeting ESP32-S3.
 - Central Kconfig-backed controller configuration.
@@ -26,9 +26,10 @@ Phases 1 through 7 are implemented:
 - Rule-based health scoring, persistence/recovery hysteresis, rolling baselines, and accelerated time-window trend analysis.
 - Event activation, deduplication, escalation, acknowledgement, clearing, reminders, and a bounded CRC-protected local event history ring.
 - C6-neutral binary framing with CRC16, sequence numbers, acknowledgement state, bounded payloads, and a mock transport.
+- Four-light deterministic demo controller, event-to-mock-C6 handoff, NVS metadata adapter, and bounded task-heartbeat monitor.
 - Host CTest suite and verified ESP-IDF build.
 
-The four-light integrated demo and full FreeRTOS task wiring are delivered in the final integration phase. The current boot log does not claim those behaviors.
+The demo task is enabled by `CONFIG_SAVANTIX_DEMO_ENABLE`; real hardware PHY selection and field commissioning remain deployment work.
 
 ## Electrical safety boundary
 
@@ -115,6 +116,8 @@ components/trend_engine/     Rolling statistics and time-window trends
 components/event_manager/    Alarm lifecycle and deduplication
 components/local_storage/    Bounded CRC-checked event history
 components/c6_interface/     CRC-framed mock/UART-neutral C6 session
+components/demo_controller/  Four-light deterministic fault demo
+components/system_monitor/  Task heartbeat and queue-health monitor
 components/time_service/ Monotonic and optional wall-clock time
 test/host/               Portable CTest suite
 docs/superpowers/        Approved architecture and implementation plans
@@ -135,11 +138,12 @@ docs/verification/       Recorded verification evidence
 - `docs/verification/phase-5.md`
 - `docs/verification/phase-6.md`
 - `docs/verification/phase-7.md`
+- `docs/verification/phase-8.md`
 
 ## Known Phase 1 limitations
 
 - No real DALI physical-layer implementation exists yet.
-- No continuous polling, diagnostics, storage, or C6 frames are emitted yet.
+- The demo task emits event frames through the mock C6 transport; real UART and continuous DALI polling task ownership remain hardware integration work.
 - The scheduler is currently a portable component; Phase 8 will connect it to FreeRTOS task ownership and the DALI pipeline.
 - Hardware flashing and execution were not performed because no target board or isolated DALI transceiver was supplied.
 - GPIO polarity, DALI timing, ADC scaling, stack sizes, and physical fault inputs require board-level validation.

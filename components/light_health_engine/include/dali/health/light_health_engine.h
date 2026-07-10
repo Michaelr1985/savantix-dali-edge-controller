@@ -65,7 +65,7 @@ struct HealthEvaluation final {
 
 class LightHealthEngine final {
 public:
-    explicit LightHealthEngine(HealthScoringConfig config = {}) noexcept
+    LightHealthEngine(HealthScoringConfig config = {}) noexcept
         : config_{config} {}
 
     [[nodiscard]] HealthEvaluation evaluate(

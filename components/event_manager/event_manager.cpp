@@ -67,4 +67,10 @@ std::optional<EventTransition> EventManager::reminder(
     return std::nullopt;
 }
 
+std::size_t EventManager::activeCount() const noexcept {
+    std::size_t count = 0;
+    for (const Active& item : active_) if (item.used) ++count;
+    return count;
+}
+
 }  // namespace dali::events
