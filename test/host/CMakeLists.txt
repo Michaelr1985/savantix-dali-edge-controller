@@ -73,3 +73,14 @@ target_compile_options(test_foundation_composition PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 target_link_libraries(test_foundation_composition PRIVATE dali_simulator_host)
 add_test(NAME foundation_composition COMMAND test_foundation_composition)
+
+add_executable(test_dali_frame test_dali_frame.cpp)
+target_include_directories(test_dali_frame PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+)
+target_compile_features(test_dali_frame PRIVATE cxx_std_17)
+target_compile_options(test_dali_frame PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME dali_frame COMMAND test_dali_frame)
