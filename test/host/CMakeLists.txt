@@ -84,3 +84,18 @@ target_compile_features(test_dali_frame PRIVATE cxx_std_17)
 target_compile_options(test_dali_frame PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME dali_frame COMMAND test_dali_frame)
+
+add_executable(test_dali_response_parser
+    test_dali_response_parser.cpp
+    ../../components/dali_protocol/dali_response_parser.cpp
+)
+target_include_directories(test_dali_response_parser PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+)
+target_compile_features(test_dali_response_parser PRIVATE cxx_std_17)
+target_compile_options(test_dali_response_parser PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME dali_response_parser COMMAND test_dali_response_parser)
