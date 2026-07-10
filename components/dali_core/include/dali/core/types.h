@@ -217,4 +217,16 @@ struct LightFeatureVector final {
     Reading<float> thirtyDayTrend{};
 };
 
+struct LightEvent final {
+    std::uint32_t eventId{0};
+    std::uint8_t shortAddress{0};
+    LightEventType type{LightEventType::HealthScoreChanged};
+    EventSeverity severity{EventSeverity::Info};
+    std::uint64_t timestamp{0};
+    float healthScore{100.0F};
+    std::uint32_t activeFaultFlags{0};
+    LightRealtimeData snapshot{};
+    char description[160]{};
+};
+
 }  // namespace dali

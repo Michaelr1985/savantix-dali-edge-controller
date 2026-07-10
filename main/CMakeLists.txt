@@ -11,6 +11,8 @@ idf_component_register(
         dali_device_manager
         dali_scheduler
         light_health_engine
+        event_manager
+        local_storage
         trend_engine
         dali_simulator
         time_service

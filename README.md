@@ -4,7 +4,7 @@ Production-oriented ESP-IDF firmware for an ESP32-S3 DALI/DALI-2 edge controller
 
 ## Current implementation status
 
-Phases 1 through 5 are implemented:
+Phases 1 through 6 are implemented:
 
 - Native ESP-IDF v6.0.2 project targeting ESP32-S3.
 - Central Kconfig-backed controller configuration.
@@ -24,9 +24,10 @@ Phases 1 through 5 are implemented:
 - Core capability probing with explicit supported/unsupported states and suppression of repeated unavailable queries.
 - Bounded adaptive scheduler with on/off/warning periods, observation windows, round-robin spreading, and normal/diagnostic bus-utilisation admission.
 - Rule-based health scoring, persistence/recovery hysteresis, rolling baselines, and accelerated time-window trend analysis.
+- Event activation, deduplication, escalation, acknowledgement, clearing, reminders, and a bounded CRC-protected local event history ring.
 - Host CTest suite and verified ESP-IDF build.
 
-Events, persistent history, the C6 framing session, and the four-light integrated demo are delivered in later phases. The current boot log does not claim those behaviors.
+The C6 framing session and four-light integrated demo are delivered in later phases. The current boot log does not claim those behaviors.
 
 ## Electrical safety boundary
 
@@ -110,6 +111,8 @@ components/dali_device_manager/ Bounded device registry, discovery and capabilit
 components/dali_scheduler/   Adaptive polling periods and bus-load admission
 components/light_health_engine/ Rule-based scoring and recovery
 components/trend_engine/     Rolling statistics and time-window trends
+components/event_manager/    Alarm lifecycle and deduplication
+components/local_storage/    Bounded CRC-checked event history
 components/time_service/ Monotonic and optional wall-clock time
 test/host/               Portable CTest suite
 docs/superpowers/        Approved architecture and implementation plans
@@ -128,6 +131,7 @@ docs/verification/       Recorded verification evidence
 - `docs/verification/phase-3.md`
 - `docs/verification/phase-4.md`
 - `docs/verification/phase-5.md`
+- `docs/verification/phase-6.md`
 
 ## Known Phase 1 limitations
 

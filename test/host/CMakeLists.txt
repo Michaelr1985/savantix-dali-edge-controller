@@ -285,3 +285,31 @@ target_compile_features(test_trend_engine PRIVATE cxx_std_17)
 target_compile_options(test_trend_engine PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME trend_engine COMMAND test_trend_engine)
+
+add_executable(test_event_manager
+    test_event_manager.cpp
+    ../../components/event_manager/event_manager.cpp
+)
+target_include_directories(test_event_manager PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/event_manager/include
+)
+target_compile_features(test_event_manager PRIVATE cxx_std_17)
+target_compile_options(test_event_manager PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME event_manager COMMAND test_event_manager)
+
+add_executable(test_local_storage
+    test_local_storage.cpp
+    ../../components/local_storage/local_storage.cpp
+)
+target_include_directories(test_local_storage PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/local_storage/include
+)
+target_compile_features(test_local_storage PRIVATE cxx_std_17)
+target_compile_options(test_local_storage PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME local_storage COMMAND test_local_storage)
