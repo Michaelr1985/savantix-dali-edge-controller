@@ -7,6 +7,7 @@ idf_component_register(
     REQUIRES
         dali_core
         dali_phy
+        dali_protocol
         dali_simulator
         time_service
 )

@@ -142,3 +142,21 @@ target_compile_features(test_communication_quality PRIVATE cxx_std_17)
 target_compile_options(test_communication_quality PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME communication_quality COMMAND test_communication_quality)
+
+add_executable(test_dali_protocol_pipeline
+    test_dali_protocol_pipeline.cpp
+    ../../components/dali_protocol/dali_response_parser.cpp
+    ../../components/dali_protocol/dali_transaction.cpp
+)
+target_include_directories(test_dali_protocol_pipeline PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_simulator/include
+)
+target_compile_features(test_dali_protocol_pipeline PRIVATE cxx_std_17)
+target_compile_options(test_dali_protocol_pipeline PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+target_link_libraries(test_dali_protocol_pipeline PRIVATE dali_simulator_host)
+add_test(NAME dali_protocol_pipeline COMMAND test_dali_protocol_pipeline)

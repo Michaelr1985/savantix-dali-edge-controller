@@ -4,7 +4,7 @@ Production-oriented ESP-IDF firmware for an ESP32-S3 DALI/DALI-2 edge controller
 
 ## Current implementation status
 
-Phase 1 is implemented:
+Phases 1 and 2 are implemented:
 
 - Native ESP-IDF v6.0.2 project targeting ESP32-S3.
 - Central Kconfig-backed controller configuration.
@@ -13,9 +13,15 @@ Phase 1 is implemented:
 - Allocation-free deterministic simulated PHY with bounded response queue.
 - Monotonic time abstraction and optional Unix-time synchronisation.
 - Validated boot-composition boundary.
+- Standard short, group, and broadcast DALI forward-frame construction.
+- Typed backward-response and basic-status decoding.
+- Stable 64-entry priority command queue.
+- Serial transactions with bounded retries, jittered stepped backoff, and preserved PHY failure causes.
+- Saturating communication-quality counters with explicit no-data state.
+- One-request-at-a-time protocol pipeline.
 - Host CTest suite and verified ESP-IDF build.
 
-Protocol transactions, discovery, adaptive scheduling, health/trend intelligence, events, persistent history, the C6 framing session, and the four-light integrated demo are delivered in later phases. The current boot log does not claim those behaviors.
+Discovery, adaptive scheduling, health/trend intelligence, events, persistent history, the C6 framing session, and the four-light integrated demo are delivered in later phases. The current boot log does not claim those behaviors.
 
 ## Electrical safety boundary
 
@@ -69,7 +75,7 @@ The host suite compiles production domain and simulator code directly. It does n
 
 ## Phase 1 boot behavior
 
-With `CONFIG_SAVANTIX_DEMO_ENABLE=y`, boot validates configuration, initialises `SimulatedDaliPhy`, verifies its health, and logs that the foundation is ready. It does not yet issue DALI commands.
+With `CONFIG_SAVANTIX_DEMO_ENABLE=y`, boot validates configuration, initialises `SimulatedDaliPhy`, verifies its health, then performs one scripted `QUERY STATUS` protocol self-check against simulated address 3. This proves framing, queueing, transport, response parsing, and quality accounting; it is not device discovery or continuous polling.
 
 With demo mode disabled, Phase 1 reports that no hardware PHY is selected and stops initialisation safely. A real isolated PHY adapter is introduced only after its electrical and timing assumptions are known.
 
@@ -94,6 +100,7 @@ main/                    Boot composition and Kconfig adapter
 components/dali_core/    Portable domain types
 components/dali_phy/     Hardware-independent PHY contract
 components/dali_simulator/ Deterministic simulated PHY
+components/dali_protocol/ Frames, parser, queue, transactions and quality
 components/time_service/ Monotonic and optional wall-clock time
 test/host/               Portable CTest suite
 docs/superpowers/        Approved architecture and implementation plans
@@ -109,8 +116,7 @@ docs/verification/       Recorded verification evidence
 ## Known Phase 1 limitations
 
 - No real DALI physical-layer implementation exists yet.
-- No DALI protocol commands, discovery, polling, diagnostics, storage, or C6 frames are emitted yet.
+- No discovery, continuous polling, diagnostics, storage, or C6 frames are emitted yet.
 - Hardware flashing and execution were not performed because no target board or isolated DALI transceiver was supplied.
 - GPIO polarity, DALI timing, ADC scaling, stack sizes, and physical fault inputs require board-level validation.
 - ESP-IDF v6.0.2 emits non-fatal configuration notifications from a few upstream component defaults; the Savantix project build itself completes successfully.
-
