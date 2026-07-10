@@ -1,5 +1,7 @@
 idf_component_register(
-    SRCS "dali_response_parser.cpp"
+    SRCS
+        "dali_response_parser.cpp"
+        "dali_transaction.cpp"
     INCLUDE_DIRS "include"
     REQUIRES dali_core dali_phy
 )

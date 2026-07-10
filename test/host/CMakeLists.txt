@@ -110,3 +110,20 @@ target_compile_features(test_dali_command_queue PRIVATE cxx_std_17)
 target_compile_options(test_dali_command_queue PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME dali_command_queue COMMAND test_dali_command_queue)
+
+add_executable(test_dali_transaction
+    test_dali_transaction.cpp
+    ../../components/dali_protocol/dali_transaction.cpp
+)
+target_include_directories(test_dali_transaction PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_protocol/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_simulator/include
+)
+target_compile_features(test_dali_transaction PRIVATE cxx_std_17)
+target_compile_options(test_dali_transaction PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+target_link_libraries(test_dali_transaction PRIVATE dali_simulator_host)
+add_test(NAME dali_transaction COMMAND test_dali_transaction)
