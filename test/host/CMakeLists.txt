@@ -56,3 +56,20 @@ target_compile_features(test_time_contract PRIVATE cxx_std_17)
 target_compile_options(test_time_contract PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME time_contract COMMAND test_time_contract)
+
+add_executable(test_foundation_composition
+    test_foundation_composition.cpp
+    ../../main/app_config.cpp
+    ../../main/foundation_runtime.cpp
+)
+target_include_directories(test_foundation_composition PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../main
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_phy/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_simulator/include
+)
+target_compile_features(test_foundation_composition PRIVATE cxx_std_17)
+target_compile_options(test_foundation_composition PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+target_link_libraries(test_foundation_composition PRIVATE dali_simulator_host)
+add_test(NAME foundation_composition COMMAND test_foundation_composition)

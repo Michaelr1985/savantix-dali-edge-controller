@@ -43,7 +43,7 @@
 - Create: `main/CMakeLists.txt`
 - Create: `main/app_main.cpp`
 
-- [ ] **Step 1: Create the smallest ESP-IDF source shell**
+- [x] **Step 1: Create the smallest ESP-IDF source shell**
 
 Create `CMakeLists.txt`:
 
@@ -97,7 +97,7 @@ extern "C" void app_main() {
 }
 ```
 
-- [ ] **Step 2: Run the ESP-IDF build and record the environmental result**
+- [x] **Step 2: Run the ESP-IDF build and record the environmental result**
 
 Run:
 
@@ -108,7 +108,7 @@ idf.py build
 
 Expected after ESP-IDF v6.0.2 is installed and exported: exit 0 and an application binary for `esp32s3`. If `idf.py` is unavailable, install/export v6.0.2 before continuing; do not count an unavailable toolchain as a passing build.
 
-- [ ] **Step 3: Commit the shell**
+- [x] **Step 3: Commit the shell**
 
 ```bash
 git add CMakeLists.txt sdkconfig.defaults partitions.csv main/CMakeLists.txt main/app_main.cpp
@@ -124,7 +124,7 @@ git commit -m "build: scaffold ESP-IDF DALI controller"
 - Modify: `main/CMakeLists.txt`
 - Modify: `main/app_main.cpp`
 
-- [ ] **Step 1: Write a compile-time contract test as a temporary host translation unit**
+- [x] **Step 1: Write a compile-time contract test as a temporary host translation unit**
 
 Create `test/host/test_app_config_compile.cpp`:
 
@@ -139,7 +139,7 @@ int main() {
 }
 ```
 
-- [ ] **Step 2: Verify the contract test fails because configuration does not exist**
+- [x] **Step 2: Verify the contract test fails because configuration does not exist**
 
 Run:
 
@@ -149,7 +149,7 @@ c++ -std=c++17 -Imain test/host/test_app_config_compile.cpp -c
 
 Expected: failure containing `app_config.h: No such file or directory`.
 
-- [ ] **Step 3: Define configuration options and the validated snapshot**
+- [x] **Step 3: Define configuration options and the validated snapshot**
 
 Create `main/Kconfig.projbuild`:
 
@@ -383,7 +383,7 @@ bool SmartLightConfig::validate() const noexcept {
 }
 ```
 
-- [ ] **Step 4: Compile the configuration contract and verify it passes**
+- [x] **Step 4: Compile the configuration contract and verify it passes**
 
 Run:
 
@@ -394,11 +394,11 @@ c++ -std=c++17 -Imain test/host/test_app_config_compile.cpp main/app_config.cpp 
 
 Expected: exit 0. Remove `build_app_config_contract` after verification; Task 3 replaces this temporary check with the permanent host suite.
 
-- [ ] **Step 5: Wire validated configuration into boot**
+- [x] **Step 5: Wire validated configuration into boot**
 
 Add `app_config.cpp` to `main/CMakeLists.txt`. In `app_main`, construct `SmartLightConfig::fromKconfig()`, log an error and return when validation fails, and log the maximum light count on success.
 
-- [ ] **Step 6: Rebuild and commit**
+- [x] **Step 6: Rebuild and commit**
 
 ```bash
 idf.py build
@@ -418,7 +418,7 @@ Expected: build exit 0.
 - Create: `test/host/test_domain_types.cpp`
 - Delete: `test/host/test_app_config_compile.cpp`
 
-- [ ] **Step 1: Create the permanent host test harness and failing domain tests**
+- [x] **Step 1: Create the permanent host test harness and failing domain tests**
 
 Create `test/host/test_support.h`:
 
@@ -482,7 +482,7 @@ target_compile_options(test_domain_types PRIVATE -Wall -Wextra -Wpedantic -Werro
 add_test(NAME domain_types COMMAND test_domain_types)
 ```
 
-- [ ] **Step 2: Verify the test fails for the missing production header**
+- [x] **Step 2: Verify the test fails for the missing production header**
 
 ```bash
 cmake -S test/host -B build/host
@@ -491,7 +491,7 @@ cmake --build build/host
 
 Expected: compilation failure containing `dali/core/types.h: No such file or directory`.
 
-- [ ] **Step 3: Implement strong addresses, reading validity, and core records**
+- [x] **Step 3: Implement strong addresses, reading validity, and core records**
 
 Create `components/dali_core/include/dali/core/types.h`:
 
@@ -694,7 +694,7 @@ idf_component_register(INCLUDE_DIRS "include")
 target_compile_features(${COMPONENT_LIB} INTERFACE cxx_std_17)
 ```
 
-- [ ] **Step 4: Run the host test and verify green**
+- [x] **Step 4: Run the host test and verify green**
 
 ```bash
 cmake --build build/host --parallel
@@ -703,7 +703,7 @@ ctest --test-dir build/host --output-on-failure
 
 Expected: `domain_types` passes.
 
-- [ ] **Step 5: Remove the temporary configuration test and commit**
+- [x] **Step 5: Remove the temporary configuration test and commit**
 
 ```bash
 rm test/host/test_app_config_compile.cpp
@@ -719,7 +719,7 @@ git commit -m "feat: add validity-aware DALI domain types"
 - Modify: `test/host/CMakeLists.txt`
 - Create: `test/host/test_phy_contract.cpp`
 
-- [ ] **Step 1: Write the failing compile-time interface test**
+- [x] **Step 1: Write the failing compile-time interface test**
 
 Create `test/host/test_phy_contract.cpp`:
 
@@ -735,7 +735,7 @@ int main() { return 0; }
 
 Add a `test_phy_contract` target and CTest entry to `test/host/CMakeLists.txt` with the PHY include directory.
 
-- [ ] **Step 2: Verify failure for the missing interface**
+- [x] **Step 2: Verify failure for the missing interface**
 
 ```bash
 cmake -S test/host -B build/host
@@ -744,7 +744,7 @@ cmake --build build/host
 
 Expected: compilation failure containing `dali/phy/i_dali_phy.h: No such file or directory`.
 
-- [ ] **Step 3: Implement the portable PHY interface**
+- [x] **Step 3: Implement the portable PHY interface**
 
 Create `i_dali_phy.h`:
 
@@ -793,7 +793,7 @@ public:
 
 Create the component manifest with the public include directory and dependency on `dali_core`.
 
-- [ ] **Step 4: Verify and commit**
+- [x] **Step 4: Verify and commit**
 
 ```bash
 cmake --build build/host --parallel
@@ -814,7 +814,7 @@ Expected: all host tests and the firmware build pass.
 - Create: `test/host/test_simulated_dali_phy.cpp`
 - Modify: `test/host/CMakeLists.txt`
 
-- [ ] **Step 1: Write failing behavior tests**
+- [x] **Step 1: Write failing behavior tests**
 
 Create `test/host/test_simulated_dali_phy.cpp` testing these behaviors independently:
 
@@ -847,7 +847,7 @@ int main() {
 
 Add a separate capacity test that fills the scripted response queue to `SimulatedDaliPhy::kResponseCapacity`, verifies the next enqueue returns `PhyResult::Busy`, consumes one response, and verifies one enqueue succeeds. Add both executables and tests to the host CMake file, compiling the production simulator source directly.
 
-- [ ] **Step 2: Verify tests fail because the simulator is absent**
+- [x] **Step 2: Verify tests fail because the simulator is absent**
 
 ```bash
 cmake -S test/host -B build/host
@@ -856,7 +856,7 @@ cmake --build build/host
 
 Expected: compilation failure containing `dali/sim/simulated_dali_phy.h: No such file or directory`.
 
-- [ ] **Step 3: Implement the simulator without dynamic allocation**
+- [x] **Step 3: Implement the simulator without dynamic allocation**
 
 Define `SimulatedResponse { PhyResult result; uint8_t value; uint32_t delayMs; }`. Implement `SimulatedDaliPhy` using `std::array<SimulatedResponse, 32>`, head/count indices, a last transmitted frame, bus-power/health/collision/busy controls, and initialisation state. `receive` must leave a queued delayed response in place when `timeoutMs` is too short. `reset` clears transient busy/collision/stuck-line state but does not invent bus power.
 
@@ -1000,7 +1000,7 @@ std::uint32_t SimulatedDaliPhy::transmittedFrameCount() const noexcept {
 }  // namespace dali
 ```
 
-- [ ] **Step 4: Verify red-to-green behavior**
+- [x] **Step 4: Verify red-to-green behavior**
 
 ```bash
 cmake --build build/host --parallel
@@ -1010,7 +1010,7 @@ idf.py build
 
 Expected: domain, PHY contract, simulator behavior, and capacity tests pass; firmware build passes.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add components/dali_simulator test/host
@@ -1027,11 +1027,11 @@ git commit -m "feat: add bounded simulated DALI physical layer"
 - Create: `test/host/test_time_contract.cpp`
 - Modify: `test/host/CMakeLists.txt`
 
-- [ ] **Step 1: Write a failing fake-time contract test**
+- [x] **Step 1: Write a failing fake-time contract test**
 
 The test defines a local `FakeTimeSource` implementing `ITimeSource`, verifies uptime always exists, verifies Unix time is initially invalid, calls `synchroniseUnixTime(1'800'000'000, 5000)`, advances uptime to 8000, and expects Unix time `1'800'000'003` with validity true.
 
-- [ ] **Step 2: Run and verify missing-interface failure**
+- [x] **Step 2: Run and verify missing-interface failure**
 
 ```bash
 cmake -S test/host -B build/host
@@ -1040,11 +1040,11 @@ cmake --build build/host
 
 Expected: compilation failure containing `dali/time/i_time_source.h: No such file or directory`.
 
-- [ ] **Step 3: Implement the time contract and ESP adapter**
+- [x] **Step 3: Implement the time contract and ESP adapter**
 
 `ITimeSource` exposes `uptimeMs()`, `unixTimeValid()`, `unixTimeSeconds()`, and `synchroniseUnixTime(unixSeconds, uptimeAtSyncMs)`. `EspTimeSource` gets uptime from `esp_timer_get_time()`, stores sync state behind a FreeRTOS critical section, and derives Unix time from monotonic elapsed seconds. It never makes control behavior depend on wall-clock validity.
 
-- [ ] **Step 4: Verify and commit**
+- [x] **Step 4: Verify and commit**
 
 ```bash
 cmake --build build/host --parallel
@@ -1065,11 +1065,11 @@ Expected: all tests and the ESP-IDF build pass.
 - Create: `docs/verification/phase-1.md`
 - Create: `README.md`
 
-- [ ] **Step 1: Write a failing host composition test**
+- [x] **Step 1: Write a failing host composition test**
 
 Create `test/host/test_foundation_composition.cpp` that constructs validated default configuration through a test factory, initialises `SimulatedDaliPhy`, enqueues one response, transmits one frame, receives it, and asserts health and response. This test uses real production classes and no mocks.
 
-- [ ] **Step 2: Verify it fails because the test configuration factory and composition helper do not exist**
+- [x] **Step 2: Verify it fails because the test configuration factory and composition helper do not exist**
 
 ```bash
 cmake -S test/host -B build/host
@@ -1078,11 +1078,11 @@ cmake --build build/host
 
 Expected: a compile failure naming the missing production API.
 
-- [ ] **Step 3: Add the minimal composition API and boot behavior**
+- [x] **Step 3: Add the minimal composition API and boot behavior**
 
 Use the existing platform-neutral `SmartLightConfig::defaults()` factory and keep `fromKconfig()` as the ESP adapter. Update `main/CMakeLists.txt` to require `dali_core`, `dali_phy`, `dali_simulator`, and `time_service`. When demo mode is enabled, `app_main` initialises the simulator, logs PHY health, and logs that Phase 1 is ready. It must not start fake polling or claim device discovery before later phases implement those behaviors.
 
-- [ ] **Step 4: Run the complete Phase 1 verification set**
+- [x] **Step 4: Run the complete Phase 1 verification set**
 
 ```bash
 rm -rf build/host
@@ -1096,11 +1096,11 @@ git diff --check
 
 Expected: every host test passes, ESP-IDF build exits 0, and `git diff --check` emits no errors.
 
-- [ ] **Step 5: Document exact evidence**
+- [x] **Step 5: Document exact evidence**
 
 Create `docs/verification/phase-1.md` containing tool versions, commands, exit results, test names, ESP-IDF binary size output, unresolved hardware-only checks, and the commit hash. Create `README.md` with ESP-IDF v6.0.2 setup, target/build/flash/monitor commands, host-test commands, module overview, isolated-PHY warning, GPIO assumptions, current demo behavior, and Phase 1 limitations.
 
-- [ ] **Step 6: Commit the verified phase**
+- [x] **Step 6: Commit the verified phase**
 
 ```bash
 git add main test/host README.md docs/verification/phase-1.md
@@ -1111,11 +1111,11 @@ git commit -m "feat: complete DALI controller foundation"
 
 Do not write the Phase 2 detailed plan until all of these are true:
 
-- [ ] The host suite was observed failing for each introduced behavior before implementation.
-- [ ] All host tests pass with warnings treated as errors.
-- [ ] ESP-IDF v6.0.2 builds the application for `esp32s3`.
-- [ ] Domain types cannot silently treat unsupported data as measurements.
-- [ ] Simulator queues are bounded and deterministic.
-- [ ] Time-dependent behavior is testable without sleeping.
-- [ ] Optional GPIOs default disabled and the README warns against direct DALI-bus connection.
-- [ ] Verification evidence is recorded and committed.
+- [x] The host suite was observed failing for each introduced behavior before implementation.
+- [x] All host tests pass with warnings treated as errors.
+- [x] ESP-IDF v6.0.2 builds the application for `esp32s3`.
+- [x] Domain types cannot silently treat unsupported data as measurements.
+- [x] Simulator queues are bounded and deterministic.
+- [x] Time-dependent behavior is testable without sleeping.
+- [x] Optional GPIOs default disabled and the README warns against direct DALI-bus connection.
+- [x] Verification evidence is recorded and committed.
