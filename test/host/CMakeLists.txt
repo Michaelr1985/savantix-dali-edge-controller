@@ -313,3 +313,16 @@ target_compile_features(test_local_storage PRIVATE cxx_std_17)
 target_compile_options(test_local_storage PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME local_storage COMMAND test_local_storage)
+
+add_executable(test_c6_interface
+    test_c6_interface.cpp
+    ../../components/c6_interface/c6_interface.cpp
+)
+target_include_directories(test_c6_interface PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/c6_interface/include
+)
+target_compile_features(test_c6_interface PRIVATE cxx_std_17)
+target_compile_options(test_c6_interface PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME c6_interface COMMAND test_c6_interface)

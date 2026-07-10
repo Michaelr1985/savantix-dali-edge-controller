@@ -12,6 +12,7 @@ idf_component_register(
         dali_scheduler
         light_health_engine
         event_manager
+        c6_interface
         local_storage
         trend_engine
         dali_simulator
