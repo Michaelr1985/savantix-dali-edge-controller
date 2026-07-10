@@ -4,7 +4,7 @@ Production-oriented ESP-IDF firmware for an ESP32-S3 DALI/DALI-2 edge controller
 
 ## Current implementation status
 
-Phases 1 through 3 are implemented:
+Phases 1 through 4 are implemented:
 
 - Native ESP-IDF v6.0.2 project targeting ESP32-S3.
 - Central Kconfig-backed controller configuration.
@@ -22,9 +22,10 @@ Phases 1 through 3 are implemented:
 - Fixed 64-slot pre-addressed device registry with validated short addresses.
 - Presence discovery with duplicate-address suspicion, three-scan missing hysteresis, recovery events, and bus-failure suppression.
 - Core capability probing with explicit supported/unsupported states and suppression of repeated unavailable queries.
+- Bounded adaptive scheduler with on/off/warning periods, observation windows, round-robin spreading, and normal/diagnostic bus-utilisation admission.
 - Host CTest suite and verified ESP-IDF build.
 
-Adaptive scheduling, health/trend intelligence, events, persistent history, the C6 framing session, and the four-light integrated demo are delivered in later phases. The current boot log does not claim those behaviors.
+Health/trend intelligence, events, persistent history, the C6 framing session, and the four-light integrated demo are delivered in later phases. The current boot log does not claim those behaviors.
 
 ## Electrical safety boundary
 
@@ -105,6 +106,7 @@ components/dali_phy/     Hardware-independent PHY contract
 components/dali_simulator/ Deterministic simulated PHY
 components/dali_protocol/ Frames, parser, queue, transactions, query client and quality
 components/dali_device_manager/ Bounded device registry, discovery and capabilities
+components/dali_scheduler/   Adaptive polling periods and bus-load admission
 components/time_service/ Monotonic and optional wall-clock time
 test/host/               Portable CTest suite
 docs/superpowers/        Approved architecture and implementation plans
@@ -121,11 +123,13 @@ docs/verification/       Recorded verification evidence
 - `docs/verification/phase-1.md`
 - `docs/verification/phase-2.md`
 - `docs/verification/phase-3.md`
+- `docs/verification/phase-4.md`
 
 ## Known Phase 1 limitations
 
 - No real DALI physical-layer implementation exists yet.
 - No continuous polling, diagnostics, storage, or C6 frames are emitted yet.
+- The scheduler is currently a portable component; Phase 8 will connect it to FreeRTOS task ownership and the DALI pipeline.
 - Hardware flashing and execution were not performed because no target board or isolated DALI transceiver was supplied.
 - GPIO polarity, DALI timing, ADC scaling, stack sizes, and physical fault inputs require board-level validation.
 - ESP-IDF v6.0.2 emits non-fatal configuration notifications from a few upstream component defaults; the Savantix project build itself completes successfully.

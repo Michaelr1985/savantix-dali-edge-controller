@@ -9,6 +9,7 @@ idf_component_register(
         dali_phy
         dali_protocol
         dali_device_manager
+        dali_scheduler
         dali_simulator
         time_service
 )

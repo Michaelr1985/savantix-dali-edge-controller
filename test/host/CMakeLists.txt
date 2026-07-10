@@ -243,3 +243,16 @@ target_compile_features(test_device_manager_integration PRIVATE cxx_std_17)
 target_compile_options(test_device_manager_integration PRIVATE
     -Wall -Wextra -Wpedantic -Werror)
 add_test(NAME device_manager_integration COMMAND test_device_manager_integration)
+
+add_executable(test_dali_scheduler
+    test_dali_scheduler.cpp
+    ../../components/dali_scheduler/dali_scheduler.cpp
+)
+target_include_directories(test_dali_scheduler PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../components/dali_scheduler/include
+)
+target_compile_features(test_dali_scheduler PRIVATE cxx_std_17)
+target_compile_options(test_dali_scheduler PRIVATE
+    -Wall -Wextra -Wpedantic -Werror)
+add_test(NAME dali_scheduler COMMAND test_dali_scheduler)
