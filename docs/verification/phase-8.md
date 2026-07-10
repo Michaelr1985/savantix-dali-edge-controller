@@ -13,10 +13,12 @@ cmake --build build-host --parallel
 ctest --test-dir build-host --output-on-failure
 ```
 
-Result: **25/25 tests passed, 0 failures.** New tests:
+Result: **27/27 tests passed, 0 failures.** New tests:
 
 - `system_monitor`: task heartbeat timeout and queue high-water tracking.
 - `demo_controller`: discovery of four simulated lights, event-to-C6 output, lamp failure, rising thermal warning, and health-score changes.
+- `diagnostics`: direct DALI fault precedence, thermal thresholds, and electrical drift classification.
+- `baseline_engine`: five commanded-level bands, healthy-only updates, and explicit validity handling.
 
 ## Firmware verification
 
