@@ -81,6 +81,11 @@ private:
     return makeFrame(0xFFU, static_cast<std::uint8_t>(command));
 }
 
+[[nodiscard]] constexpr ForwardFrame makeSpecialCommand(
+    DaliSpecialCommand command, std::uint8_t parameter) noexcept {
+    return makeFrame(static_cast<std::uint8_t>(command), parameter);
+}
+
 [[nodiscard]] constexpr ForwardFrame makeBroadcastArc(ArcLevel level) noexcept {
     return makeFrame(0xFEU, level.value());
 }
